@@ -6,11 +6,11 @@ namespace Finaly_of_mine
 {
     
     public class Game1 : Game
-    {
-        
+    {        
         private GraphicsDeviceManager graph;
         private SpriteBatch spriBat;
         Screen screen;
+        MouseState mouseState;
         Levels level;
         enum Screen
         {
@@ -34,6 +34,7 @@ namespace Finaly_of_mine
             // TODO: Add your initialization logic here
             screen=Screen.Intro;
             base.Initialize();
+            
         }
 
         protected override void LoadContent()
@@ -45,24 +46,22 @@ namespace Finaly_of_mine
 
         protected override void Update(GameTime gameTime)
         {
+            mouseState = Mouse.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if(screen == Screen.Intro)
-            {
-
-            }
-            if(screen == Screen.Middle)
-            {
-                level=Levels.One;
-            }
+            if (screen == Screen.Intro)
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                    screen = Screen.Middle;
+            if (screen == Screen.Middle)
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                    level =Levels.One;            
             if(level==Levels.Four)
-            {
-                screen = Screen.Endtro;
-            }
-            if(screen==Screen.Endtro)
-            {
-                base.Exit();
-            }
+              if(mouseState.LeftButton == ButtonState.Pressed)
+                    screen = Screen.Endtro;           
+            if(screen==Screen.Endtro)            
+                if(mouseState.LeftButton==ButtonState.Pressed)
+                    base.Exit();
+            
             // TODO: Add your update logic here
 
             base.Update(gameTime);

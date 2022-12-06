@@ -12,6 +12,9 @@ namespace Finaly_of_mine
         Screen screen;
         MouseState mouseState;
         Levels level;
+        SpriteFont font;
+        Texture2D myTexture;
+        Rectangle myRect;
         enum Screen
         {
             Intro,
@@ -33,6 +36,7 @@ namespace Finaly_of_mine
         {
             // TODO: Add your initialization logic here
             screen=Screen.Intro;
+            myRect=new Rectangle(0,0,75,75);
             base.Initialize();
             
         }
@@ -40,7 +44,8 @@ namespace Finaly_of_mine
         protected override void LoadContent()
         {
             spriBat = new SpriteBatch(GraphicsDevice);
-
+            myTexture = Content.Load<Texture2D>("1stTexture");
+            font = Content.Load<SpriteFont>("File");
             // TODO: use this.Content to load your game content here
         }
 
@@ -72,7 +77,24 @@ namespace Finaly_of_mine
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriBat.Begin();
+            if(screen == Screen.Intro)
+            {
+                //spriBat.Draw();
+            }
+            if(screen == Screen.Middle)
+            {
+                //spriBat.Draw();
+            }
+            if(level==Levels.One)
+            {
+                //spriBat.Draw();
+            }
+            if (screen == Screen.Endtro)
+            {
+                //spriBat.Draw();
+            }
+            spriBat.End();
             base.Draw(gameTime);
         }
     }

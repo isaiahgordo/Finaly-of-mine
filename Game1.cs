@@ -99,8 +99,8 @@ namespace Finaly_of_mine
             {
                 spriBat.Draw(grassText, myRect, Color.White);
                 for (int i = 0; i < 10; i++)
-                { 
-
+                {
+                    plusRect.X +=(int) grassPlus.X;
                     spriBat.Draw(grassText, plusRect, Color.White); 
                 }              
                 spriBat.Draw(playText, playRect, Color.White);

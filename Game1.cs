@@ -10,22 +10,23 @@ namespace Finaly_of_mine
         private GraphicsDeviceManager graph;
         private SpriteBatch spriBat;
         Screen screen;
-        MouseState mouseState;
-        Levels level;
+        MouseState mouseState;        
         SpriteFont font;
-        Texture2D grassText,playText;
-        Rectangle myRect,playRect,plusRect;
-        Vector2 vect,gravite,grassPlus;
+        Player player;
+        Wall wall;
+        Texture2D grassText,playText;        
+        Vector2 gravite,vect;
+        enum Levels
+        {
+            Zero, One, Two, Three, Fore
+        }
+        Levels levels;
         enum Screen
         {
             Intro,
             Middle,
             Game,
             Endtro
-        }
-        enum Levels
-        {
-            Zero,One,Two,Three,Four
         }
         public Game1()
         {
@@ -37,21 +38,19 @@ namespace Finaly_of_mine
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            screen=Screen.Intro;
-            level=Levels.Zero;
-            vect = new Vector2(100, 200);
-            myRect =new Rectangle(0,375,75,105);
-            playRect = new Rectangle(0, 300, 75, 75);            
+            screen=Screen.Intro;                          
             gravite = new Vector2(0, -100);
-            grassPlus = new Vector2(75, 0);
-            plusRect = new Rectangle((int)(myRect.X + grassPlus.X), myRect.Y, myRect.Width, myRect.Height);
-            base.Initialize();            
+            levels = Levels.Zero;
+            vect = new Vector2(200, 200);
+            base.Initialize();
+            player = new Player(playText, new Rectangle(0, 300, 75, 75), Color.White, new Vector2(100, 200));
+            wall = new Wall(grassText, new Rectangle(0, 375, 75, 105), Color.White);
         }
 
         protected override void LoadContent()
         {
             spriBat = new SpriteBatch(GraphicsDevice);
-            grassText = Content.Load<Texture2D>("Grass");
+            grassText = Content.Load<Texture2D>("Rockwall");
             font = Content.Load<SpriteFont>("File");
             playText = Content.Load<Texture2D>("download");
             // TODO: use this.Content to load your game content here
@@ -68,8 +67,15 @@ namespace Finaly_of_mine
                     screen = Screen.Middle;
             if (screen == Screen.Middle)
                 if (kstate.IsKeyDown(Keys.A))
-                { level = Levels.One; screen = Screen.Game; }         
-            if(level==Levels.Four)
+                {
+                    levels = Levels.One;
+                    screen = Screen.Game;
+                }    
+            if(levels == Levels.One&&screen==Screen.Game)
+            {
+                player.Move(graph,kstate);
+            }
+            if(levels== Levels.Fore)
               if(mouseState.LeftButton == ButtonState.Pressed)
                     screen = Screen.Endtro;           
             if(screen==Screen.Endtro)            
@@ -82,9 +88,9 @@ namespace Finaly_of_mine
         }
 
         protected override void Draw(GameTime gameTime)
-        {
+        { 
+            int i = 0;
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             // TODO: Add your drawing code here
             spriBat.Begin();
             if(screen == Screen.Intro)
@@ -95,15 +101,12 @@ namespace Finaly_of_mine
             {
                 spriBat.DrawString(font, "Wasd to play, A to continue", vect, Color.Blue);
             }
-            if(level==Levels.One)
+            if(screen==Screen.Game)
             {
-                spriBat.Draw(grassText, myRect, Color.White);
-                for (int i = 0; i < 10; i++)
-                {
-                    plusRect.X +=(int) grassPlus.X;
-                    spriBat.Draw(grassText, plusRect, Color.White); 
-                }              
-                spriBat.Draw(playText, playRect, Color.White);
+                if (levels == Levels.One)
+                    i = 1;
+                player.Draw(spriBat,i); 
+                wall.Draw(spriBat);
             }
             if (screen == Screen.Endtro)
             {

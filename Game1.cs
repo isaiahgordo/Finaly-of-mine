@@ -47,6 +47,7 @@ namespace Finaly_of_mine
             player = new Player(playText, new Rectangle(0, 375, 75, 75), Color.White, new Vector2(25, 25));
             wall = new Wall(grassText, new Rectangle(0, 0, 75, 105), Color.White);
             finish = new Finish(finishText, new Rectangle(graph.PreferredBackBufferWidth - 100, 0, 100, 100), Color.White);
+            wall.WallBounds(graph);
         }
 
         protected override void LoadContent()
@@ -75,7 +76,7 @@ namespace Finaly_of_mine
                     screen = Screen.Game;
                 }    
             if(levels == Levels.One&&screen==Screen.Game)
-            {
+            {                
                 player.Move(graph,kstate,finish.centure);
                 if (player.oget == 5)
                     levels = Levels.Two;

@@ -14,8 +14,9 @@ namespace Finaly_of_mine
         SpriteFont font;
         Player player;
         Wall wall;
-        Texture2D grassText,playText;        
+        Texture2D grassText,playText,finishText;        
         Vector2 gravite,vect;
+        Finish finish;
         enum Levels
         {
             Zero, One, Two, Three, Fore
@@ -41,10 +42,11 @@ namespace Finaly_of_mine
             screen=Screen.Intro;                          
             gravite = new Vector2(0, -100);
             levels = Levels.Zero;
-            vect = new Vector2(200, 200);
+            vect = new Vector2(25, 200);
             base.Initialize();
-            player = new Player(playText, new Rectangle(0, 300, 75, 75), Color.White, new Vector2(100, 200));
-            wall = new Wall(grassText, new Rectangle(0, 375, 75, 105), Color.White);
+            player = new Player(playText, new Rectangle(0, 375, 75, 75), Color.White, new Vector2(25, 25));
+            wall = new Wall(grassText, new Rectangle(0, 0, 75, 105), Color.White);
+            finish = new Finish(finishText, new Rectangle(graph.PreferredBackBufferWidth - 100, 0, 100, 100), Color.White);
         }
 
         protected override void LoadContent()
@@ -53,6 +55,7 @@ namespace Finaly_of_mine
             grassText = Content.Load<Texture2D>("Rockwall");
             font = Content.Load<SpriteFont>("File");
             playText = Content.Load<Texture2D>("download");
+            finishText = Content.Load<Texture2D>("Bean");
             // TODO: use this.Content to load your game content here
         }
 
@@ -73,7 +76,9 @@ namespace Finaly_of_mine
                 }    
             if(levels == Levels.One&&screen==Screen.Game)
             {
-                player.Move(graph,kstate);
+                player.Move(graph,kstate,finish.centure);
+                if (player.oget == 5)
+                    levels = Levels.Two;
             }
             if(levels== Levels.Fore)
               if(mouseState.LeftButton == ButtonState.Pressed)
@@ -99,14 +104,16 @@ namespace Finaly_of_mine
             }
             if(screen == Screen.Middle)
             {
-                spriBat.DrawString(font, "Wasd to play, A to continue", vect, Color.Blue);
+                spriBat.DrawString(font, "Wasd to play e to finish on bean the cat, A to continue", vect, Color.Blue);
             }
             if(screen==Screen.Game)
             {
                 if (levels == Levels.One)
                     i = 1;
+                finish.Draw(spriBat);
                 player.Draw(spriBat,i); 
                 wall.Draw(spriBat);
+                
             }
             if (screen == Screen.Endtro)
             {

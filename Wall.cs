@@ -39,6 +39,7 @@ namespace Finaly_of_mine
             get { return _color; }
             set { _color = value; }
         }
+        //te frick
         public void Draw(SpriteBatch sB)
         {// ta frick
             foreach(var wb in _wallBounds)

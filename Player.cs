@@ -49,7 +49,7 @@ namespace Finaly_of_mine
         {
             get { return o; }
         }
-        public void Move(GraphicsDeviceManager graphic,KeyboardState kstate,Point p,Rectangle rect)
+        public void Move(GraphicsDeviceManager graphic,KeyboardState kstate,Point p)
         {            
             bounds.Offset(_speed);
             if (kstate.IsKeyDown(Keys.A))

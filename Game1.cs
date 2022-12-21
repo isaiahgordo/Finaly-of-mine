@@ -58,7 +58,7 @@ namespace Finaly_of_mine
             finishText = Content.Load<Texture2D>("Bean");
             // TODO: use this.Content to load your game content here
         }
-
+        //noooooooooooooooo
         protected override void Update(GameTime gameTime)
         {
             mouseState = Mouse.GetState();

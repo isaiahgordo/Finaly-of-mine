@@ -37,6 +37,7 @@ namespace Finaly_of_mine
         {
             get { return _bounds.Center; }
         }
+        // why
         public void Draw(SpriteBatch sB)
         {
             sB.Draw(texture,bounds,color);

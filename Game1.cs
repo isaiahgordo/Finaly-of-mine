@@ -19,7 +19,7 @@ namespace Finaly_of_mine
         Finish finish;
         enum Levels
         {
-            Zero, One, Two, Three, Fore
+            Zero, One, Two, Three, Four
         }
         Levels levels;
         enum Screen
@@ -74,14 +74,15 @@ namespace Finaly_of_mine
                 {
                     levels = Levels.One;
                     screen = Screen.Game;
+                    wall.tGetSet = 0;
                 }    
             if(levels == Levels.One&&screen==Screen.Game)
             {                
-                player.Move(graph,kstate,finish.centure);
+                player.Move(graph,kstate,finish.centure,wall.Bounds);
                 if (player.oget == 5)
-                    levels = Levels.Two;
+                { levels = Levels.Two;wall.tGetSet = 1; }
             }
-            if(levels== Levels.Fore)
+            if(levels== Levels.Four)
               if(mouseState.LeftButton == ButtonState.Pressed)
                     screen = Screen.Endtro;           
             if(screen==Screen.Endtro)            

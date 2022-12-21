@@ -40,7 +40,7 @@ namespace Finaly_of_mine
             set { _color = value; }
         }
         public void Draw(SpriteBatch sB)
-        {
+        {// ta frick
             foreach(var wb in _wallBounds)
                 sB.Draw(Texture, wb, Color);
         }

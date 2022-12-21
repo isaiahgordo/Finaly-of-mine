@@ -15,6 +15,7 @@ namespace Finaly_of_mine
         private Texture2D _texture;
         private Color _color;
         private List<Rectangle> _wallBounds;
+        // WHY!?
         public Wall(Texture2D texture,Rectangle bounds, Color color)
         {
             _bounds = bounds;

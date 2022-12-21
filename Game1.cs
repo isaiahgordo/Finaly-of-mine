@@ -104,7 +104,7 @@ namespace Finaly_of_mine
             }
             if(screen == Screen.Middle)
             {
-                spriBat.DrawString(font, "Wasd to play e to finish on bean the cat, A to continue", vect, Color.Blue);
+                spriBat.DrawString(font, "Wasd to play e to finish on the cat, A to continue", vect, Color.Blue);
             }
             if(screen==Screen.Game)
             {

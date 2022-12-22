@@ -80,6 +80,8 @@ namespace Finaly_of_mine
             else if (kstate.IsKeyDown(Keys.F))
                 if (bounds.Contains(p))
                     o = 5;
+                else if (kstate.IsKeyUp(Keys.F))
+                    o = 0;
         }
         public void Draw(SpriteBatch sB)
         {

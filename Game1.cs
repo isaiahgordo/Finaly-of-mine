@@ -83,21 +83,18 @@ namespace Finaly_of_mine
                 }
                 else if (levels == Levels.Two)
                 {
-                    player.oget = 0;
                     player.Move(graph,kstate,enimy.centure,t);
                     enimy.Move(graph,n);
                     if(player.oget == 5) { levels = Levels.Three;n = 2; }
                 }
                 else if(levels==Levels.Three)
-                {
-                    player.oget = 0;
+                {                    
                     player.Move(graph, kstate, enimy.centure,t);
                     enimy.Move(graph, n);
                     if (player.oget == 5) { levels = Levels.Fore; n = 3; }
                 }
                 else if (levels == Levels.Fore)
-                {
-                    player.oget = 0;
+                {                   
                     player.Move(graph, kstate, enimy.centure, t);
                     enimy.Move(graph, n);
                     if (player.oget == 5)

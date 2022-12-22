@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Finaly_of_mine
 {
-    class Finish
+    class Enimy
     {
         private Texture2D _texture;
         private Rectangle _bounds;
         private Color _color;
-        public Finish(Texture2D texture, Rectangle bounds, Color color)
+        public Enimy(Texture2D texture, Rectangle bounds, Color color)
         {
             _texture = texture;
             _bounds = bounds;
@@ -37,7 +37,7 @@ namespace Finaly_of_mine
         {
             get { return _bounds.Center; }
         }
-        // why
+        
         public void Draw(SpriteBatch sB)
         {
             sB.Draw(texture,bounds,color);

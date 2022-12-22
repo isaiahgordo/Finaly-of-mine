@@ -20,7 +20,7 @@ namespace Finaly_of_mine
         private Color _color;
         private Vector2 _speed;
         int o = 0;
-        // whyhave you done this you dumy
+        
         public Player(Texture2D texture, Rectangle bounds, Color color, Vector2 speed)
         {
             _texture = texture;

@@ -49,9 +49,17 @@ namespace Finaly_of_mine
         public int oget
         {
             get { return o; }
+            set { o = value; }
         }
-        public void Move(GraphicsDeviceManager graphic,KeyboardState kstate,Point p)
-        {            
+        public void Move(GraphicsDeviceManager graphic,KeyboardState kstate,Point p,int n)
+        {
+            if (n == 1)
+                bounds = new Rectangle(100, 100, bounds.Width, bounds.Height);
+            else if (n == 2)
+                bounds = new Rectangle(graphic.PreferredBackBufferWidth - bounds.Width - 100, graphic.PreferredBackBufferHeight - bounds.Height - 100, bounds.Width, bounds.Height);
+            else if (n == 3)
+                bounds = new Rectangle(0, 0, bounds.Width, bounds.Height);
+            else bounds = bounds;
             bounds.Offset(_speed);
             if (kstate.IsKeyDown(Keys.A))
                 if (bounds.Left - _speed.X < 0)
@@ -69,11 +77,11 @@ namespace Finaly_of_mine
                 if (bounds.Bottom + speed.Y > graphic.PreferredBackBufferHeight)
                     _bounds.Y = graphic.PreferredBackBufferHeight - _bounds.Height;
                 else _bounds.Y += (int)_speed.Y;
-            else if (kstate.IsKeyDown(Keys.E))
+            else if (kstate.IsKeyDown(Keys.F))
                 if (bounds.Contains(p))
                     o = 5;
         }
-        public void Draw(SpriteBatch sB,int i)
+        public void Draw(SpriteBatch sB)
         {
           sB.Draw(texture, bounds, color);
         }

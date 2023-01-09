@@ -75,19 +75,20 @@ namespace Finaly_of_mine
                     enimy.Move(graph);
                     player.Move(graph, kstate, enimy.centure);
                     if (player.oget == 5)
-                    { levels = Levels.Two;t++; player.oget = 0; }
+                    { levels = Levels.Two;t+=1; player.oget = 0; }
+
                 }
                 if (levels == Levels.Two)
                 {                    
                     enimy.Move(graph);
                     player.Move(graph, kstate, enimy.centure);
-                    if (player.oget == 5) { levels = Levels.Three;t++; player.oget = 0 ; }
+                    if (player.oget == 5) { levels = Levels.Three;t+=1; player.oget = 0 ; }
                 }
                 if(levels==Levels.Three)
                 {                    
                     player.Move(graph, kstate, enimy.centure);
                     enimy.Move(graph);
-                    if (player.oget == 5) { levels = Levels.Four;t++; player.oget = 0; }
+                    if (player.oget == 5) { levels = Levels.Four;t+=1; player.oget = 0; }
                 }
                 if (levels == Levels.Four)
                 {                                                                         
@@ -112,16 +113,17 @@ namespace Finaly_of_mine
             spriBat.Begin();
             if(screen == Screen.Intro)
             {                
-                spriBat.DrawString(font, "Wasd to play f to win, A to continue", vect,Color.Blue);
+                spriBat.DrawString(font, "Wasd to play press f on slimy to win, A to continue", vect,Color.Blue);
             }           
             if(screen==Screen.Game)
-            {
+            {                
                 enimy.Draw(spriBat);
                 player.Draw(spriBat);
                 spriBat.DrawString(font, t.ToString(), new Vector2(0, 0), Color.Blue);
             }
-            if (screen == Screen.Endtro)
+            else if (screen == Screen.Endtro)
             {
+                spriBat.DrawString(font, t.ToString(),new Vector2(0,0),Color.Blue);
                 spriBat.DrawString(font,"The End",vect,Color.Blue);
             }
             spriBat.End();

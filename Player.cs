@@ -51,15 +51,9 @@ namespace Finaly_of_mine
             get { return o; }
             set { o = value; }
         }
-        public void Move(GraphicsDeviceManager graphic,KeyboardState kstate,Point p,int n)
-        {
-            if (n == 1)
-                bounds = new Rectangle(100, 100, bounds.Width, bounds.Height);
-            else if (n == 2)
-                bounds = new Rectangle(graphic.PreferredBackBufferWidth - bounds.Width - 100, graphic.PreferredBackBufferHeight - bounds.Height - 100, bounds.Width, bounds.Height);
-            else if (n == 3)
-                bounds = new Rectangle(0, 0, bounds.Width, bounds.Height);
-            else bounds = bounds;
+        
+        public void Move(GraphicsDeviceManager graphic,KeyboardState kstate,Point p)
+        {            
             bounds.Offset(_speed);
             if (kstate.IsKeyDown(Keys.A))
                 if (bounds.Left - _speed.X < 0)
@@ -79,7 +73,7 @@ namespace Finaly_of_mine
                 else _bounds.Y += (int)_speed.Y;
             else if (kstate.IsKeyDown(Keys.F))
                 if (bounds.Contains(p))
-                    o = 5;
+                { o = 5; }
                 else if (kstate.IsKeyUp(Keys.F))
                     o = 0;
         }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.Xna.Framework.Graphics.SpriteFont;
 
 namespace Finaly_of_mine
 {
@@ -44,23 +45,16 @@ namespace Finaly_of_mine
         {
             get { return _bounds.Center; }
         }
-        public void Move(GraphicsDeviceManager graph,int t)
-        {
-            if (t == 1)
-                bounds = new Rectangle(100, 100, bounds.Width, bounds.Height);
-            else if (t == 2)
-                bounds = new Rectangle(graph.PreferredBackBufferWidth - bounds.Width, graph.PreferredBackBufferHeight - bounds.Height, bounds.Width, bounds.Height);
-            else if (t == 3)
-                bounds = new Rectangle(graph.PreferredBackBufferWidth - bounds.Width - 100, graph.PreferredBackBufferHeight - bounds.Height - 100, bounds.Width, bounds.Height);
-            else bounds = bounds;
-            bounds.Offset(_speed);            
-            if (bounds.Right > graph.PreferredBackBufferWidth ||bounds.Left<0)
-                _speed.X *= -1;            
-            _bounds.X += (int)speed.X;         
-            if(bounds.Bottom>graph.PreferredBackBufferHeight ||bounds.Top<0)
-                _speed.Y *= -1;            
-            _bounds.Y+=(int)speed.Y;                                          
-        }
+        public void Move(GraphicsDeviceManager graph)
+        {            
+                bounds.Offset(_speed);
+                if (bounds.Right > graph.PreferredBackBufferWidth || bounds.Left < 0)
+                    _speed.X *= -1;
+                _bounds.X += (int)speed.X;
+                if (bounds.Bottom > graph.PreferredBackBufferHeight || bounds.Top < 0)
+                    _speed.Y *= -1;
+                _bounds.Y += (int)speed.Y;               
+        }        
         public void Draw(SpriteBatch sB)
         {
             

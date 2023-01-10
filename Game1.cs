@@ -17,6 +17,26 @@ namespace Finaly_of_mine
         Vector2 gravite,vect;
         Enimy enimy;
         int t = 0;
+        class Timer
+        {
+            private float _interval,_currentTime;                       
+            public bool Tick(GameTime gime)
+            {
+                _currentTime += (float)gime.TotalGameTime.TotalSeconds;
+                if (_currentTime >= _interval)
+                {
+                    _currentTime -= _interval;
+                    return true;
+                }
+                else return false;
+            }
+            public Timer(float interval, float currentTime)
+            {
+                _interval = interval;
+                _currentTime = currentTime;
+            }
+        }
+        Timer timer;
         enum Levels
         {
             Zero, One, Two, Three, Four
@@ -45,6 +65,7 @@ namespace Finaly_of_mine
             base.Initialize();
             player = new Player(playText, new Rectangle(0, 375, 75, 75), Color.White, new Vector2(12.5f, 12.5f));           
             enimy = new Enimy(finishText, new Rectangle(0, 0, 75, 75), Color.White,new Vector2(6.25f,6.25f));
+            timer= new Timer(2f,0f);
         }
 
         protected override void LoadContent()
@@ -72,27 +93,27 @@ namespace Finaly_of_mine
             if (screen == Screen.Game)
                 if (levels == Levels.One)
                 {                    
-                    enimy.Move(graph);
+                    enimy.Move(graph,1);
                     player.Move(graph, kstate, enimy.centure);
                     if (player.oget == 5)
                     { levels = Levels.Two;t+=1; player.oget = 0; }
-
+                    if (timer.Tick(gameTime) == true) ;
                 }
                 if (levels == Levels.Two)
                 {                    
-                    enimy.Move(graph);
+                    enimy.Move(graph,2);
                     player.Move(graph, kstate, enimy.centure);
                     if (player.oget == 5) { levels = Levels.Three;t+=1; player.oget = 0 ; }
                 }
                 if(levels==Levels.Three)
                 {                    
                     player.Move(graph, kstate, enimy.centure);
-                    enimy.Move(graph);
+                    enimy.Move(graph,3);
                     if (player.oget == 5) { levels = Levels.Four;t+=1; player.oget = 0; }
                 }
                 if (levels == Levels.Four)
                 {                                                                         
-                    enimy.Move(graph);
+                    enimy.Move(graph,4);
                     player.Move(graph, kstate, enimy.centure);
                     if (player.oget == 5)
                      screen = Screen.Endtro;

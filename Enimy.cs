@@ -45,15 +45,26 @@ namespace Finaly_of_mine
         {
             get { return _bounds.Center; }
         }
-        public void Move(GraphicsDeviceManager graph)
+        public void Move(GraphicsDeviceManager graph,int i)
         {            
+            if(i>=1||i<=4)
                 bounds.Offset(_speed);
-                if (bounds.Right > graph.PreferredBackBufferWidth || bounds.Left < 0)
+            if (bounds.Right > graph.PreferredBackBufferWidth || bounds.Left < 0)
+            {
+                if (i == 1)
                     _speed.X *= -1;
-                _bounds.X += (int)speed.X;
-                if (bounds.Bottom > graph.PreferredBackBufferHeight || bounds.Top < 0)
+                else
+                    _speed.X *= -i;
+            }
+            _bounds.X += (int)speed.X;
+            if (bounds.Bottom > graph.PreferredBackBufferHeight || bounds.Top < 0)
+            {
+                if (i == 1)
                     _speed.Y *= -1;
-                _bounds.Y += (int)speed.Y;               
+                else
+                    _speed.Y *= -i;
+            }
+            _bounds.Y += (int)speed.Y;               
         }        
         public void Draw(SpriteBatch sB)
         {

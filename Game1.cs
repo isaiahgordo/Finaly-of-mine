@@ -96,7 +96,7 @@ namespace Finaly_of_mine
                     enimy.Move(graph,1);
                     player.Move(graph, kstate, enimy.centure);
                     if (player.oget == 5)
-                    { levels = Levels.Two;t+=1; player.oget = 0; }
+                    { levels = Levels.Two; player.oget = 0; }
                     if (timer.Tick(gameTime) == true) ;
                 }
                 if (levels == Levels.Two)

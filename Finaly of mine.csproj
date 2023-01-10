@@ -11,6 +11,10 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\Bean.png" />
+    <None Remove="Content\download.png" />
+    <None Remove="Content\Grass.jfif" />
+    <None Remove="Content\Rockwall.png" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>

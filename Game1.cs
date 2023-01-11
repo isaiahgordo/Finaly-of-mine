@@ -10,10 +10,11 @@ namespace Finaly_of_mine
         private GraphicsDeviceManager graph;
         private SpriteBatch spriBat;
         Screen screen;
-        MouseState mouseState;        
+        MouseState mouseState; 
+        MouseCursor mouseCursor;
         SpriteFont font;
         Player player;       
-        Texture2D playText,enimyText;        
+        Texture2D enimyText;        
         Vector2 gravite,vect;
         Enimy enimy;
         int t = 0;             
@@ -43,7 +44,7 @@ namespace Finaly_of_mine
             levels = Levels.Zero;
             vect = new Vector2(25, 200);
             base.Initialize();
-            player = new Player(playText, new Rectangle(0, 375, 75, 75), Color.White, new Vector2(12.5f, 12.5f));           
+            player = new Player(mouseCursor, new Rectangle(0, 375, 75, 75), Color.White, new Vector2(12.5f, 12.5f));           
             enimy = new Enimy(enimyText, new Rectangle(0, 0, 75, 75), Color.White,new Vector2(6.25f,6.25f));            
         }
 
@@ -51,27 +52,42 @@ namespace Finaly_of_mine
         {
             spriBat = new SpriteBatch(GraphicsDevice);            
             font = Content.Load<SpriteFont>("File");
-            playText = Content.Load<Texture2D>("redEye");
-            enimyText = Content.Load<Texture2D>("slimy");
+            
+            enimyText = Content.Load<Texture2D>("woodside");
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
             mouseState = Mouse.GetState();
-            KeyboardState kstate = Keyboard.GetState();
+            KeyboardState Kstate= Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if (screen == Screen.Intro)                
-                if (kstate.IsKeyDown(Keys.A))
+            if (screen == Screen.Intro)
+            {
+                levels = Levels.Zero;
+                if (mouseState.LeftButton == ButtonState.Pressed)
                 {
                     levels = Levels.One;
                     screen = Screen.Game;
                 }
-            if (screen == Screen.Game) ;
+                else if (mouseState.RightButton == ButtonState.Pressed)
+                { levels = Levels.Wait; screen = Screen.Game; }
+            }
+            else if (screen == Screen.Game)
+            {
+                if (levels == Levels.One)
+                { }
+                else if (levels == Levels.Wait)
+                {
+                    mouseState = Mouse.GetState();
+                    if (mouseState.RightButton == ButtonState.Released)
+                    { screen=Screen.Intro; }
+                }
+            }
                
             if(screen==Screen.Endtro)            
-                if(kstate.IsKeyDown(Keys.A))
+                if(mouseState.LeftButton == ButtonState.Pressed)
                     base.Exit();
             
             // TODO: Add your update logic here
@@ -86,17 +102,21 @@ namespace Finaly_of_mine
             spriBat.Begin();
             if(screen == Screen.Intro)
             {                
-                spriBat.DrawString(font, "left click to continue", vect,Color.Blue);
+                spriBat.DrawString(font, "Left click to continue, Right for intrutions don't release", vect,Color.Blue);
             }           
-            if(screen==Screen.Game)
+            else if(screen==Screen.Game)
             {                
-                
+                if(levels == Levels.One)
+                { 
+                    
+                }
+                else if(levels == Levels.Wait)
+                {
+                    spriBat.DrawString(font,"AD to turn, release right",vect,Color.Blue);
+                }
             }
-            else if (screen == Screen.Endtro)
-            {
-                spriBat.DrawString(font, t.ToString(),new Vector2(0,0),Color.Blue);
-                spriBat.DrawString(font,"The End",vect,Color.Blue);
-            }
+            else if (screen == Screen.Endtro)               
+                spriBat.DrawString(font,"The End",vect,Color.Blue);            
             spriBat.End();
             base.Draw(gameTime);
         }

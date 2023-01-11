@@ -140,7 +140,7 @@ namespace Finaly_of_mine
                 enimy.Draw(spriBat);
                 player.Draw(spriBat);
                 spriBat.DrawString(font, t.ToString(), new Vector2(0, 0), Color.Blue);
-                spriBat.DrawString(font, "slimy", enimy.Emyvec, Color.Blue);TextureAddressMode a lot
+                spriBat.DrawString(font, "slimy", enimy.Emyvec, Color.Blue);
             }
             else if (screen == Screen.Endtro)
             {

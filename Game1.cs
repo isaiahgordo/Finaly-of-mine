@@ -10,14 +10,12 @@ namespace Finaly_of_mine
         private GraphicsDeviceManager graph;
         private SpriteBatch spriBat;
         Screen screen;
-        MouseState mouseState; 
-        MouseCursor mouseCursor;
+        MouseState mouseState;         
         SpriteFont font;
         Player player;       
         Texture2D enimyText;        
         Vector2 gravite,vect;
-        Enimy enimy;
-        int t = 0;             
+        Enimy enimy;                    
         enum Levels
         {
             Zero, One, Two, Three, Four, Wait
@@ -38,13 +36,14 @@ namespace Finaly_of_mine
 
         protected override void Initialize()
         {
+            
             // TODO: Add your initialization logic here
             screen=Screen.Intro;                          
-            gravite = new Vector2(0, -100);
+            gravite = new Vector2(0, -100);            
             levels = Levels.Zero;
             vect = new Vector2(25, 200);
             base.Initialize();
-            player = new Player(mouseCursor, new Rectangle(0, 375, 75, 75), Color.White, new Vector2(12.5f, 12.5f));           
+            player = new Player( new Vector2(12.5f, 12.5f));           
             enimy = new Enimy(enimyText, new Rectangle(0, 0, 75, 75), Color.White,new Vector2(6.25f,6.25f));            
         }
 
@@ -52,13 +51,13 @@ namespace Finaly_of_mine
         {
             spriBat = new SpriteBatch(GraphicsDevice);            
             font = Content.Load<SpriteFont>("File");
-            
             enimyText = Content.Load<Texture2D>("woodside");
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
+            
             mouseState = Mouse.GetState();
             KeyboardState Kstate= Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))

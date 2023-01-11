@@ -14,32 +14,24 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 namespace Finaly_of_mine
 {
     class Player
-    {
-        private MouseCursor _cursor;
-        private Rectangle _bounds;
-        private Color _color;
-        private Vector2 _speed;               
-        public Player(MouseCursor cursor, Rectangle bounds, Color color, Vector2 speed)
-        {            
-            _cursor = cursor;
-            _bounds = bounds;
-            _color = color;
+    {       
+        private Rectangle _bounds;        
+        private Vector2 _speed;
+        private Point _position;
+        public Player(Vector2 speed)
+        {                             
+            _bounds= new Rectangle(_position,new Point(5,5));    
             _speed = speed;
         }       
         public Rectangle bounds
         {
             get { return _bounds; }
             set { _bounds = value; }
-        }
-        public Color color
-        {
-            get { return _color; }
-            set { _color = value; }
-        }
+        }        
         public Vector2 speed
         {
             get { return _speed; }
-        }                
+        }                    
         public void Move(GraphicsDeviceManager graphic,KeyboardState kstate)
         {            
             bounds.Offset(_speed);
@@ -52,9 +44,10 @@ namespace Finaly_of_mine
                     _bounds.X = graphic.PreferredBackBufferWidth - _bounds.Width;
                 else _bounds.X += (int)_speed.X;            
         }
-        public void Draw(SpriteBatch sB)
+        public void Find(MouseState mouse)
         {
-          
+            
         }
+        
     }
 }

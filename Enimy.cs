@@ -45,6 +45,10 @@ namespace Finaly_of_mine
         {
             get { return _bounds.Center; }
         }
+        public Vector2 Emyvec
+        {
+            get { return new Vector2(_bounds.Center.X, _bounds.Top); }
+        }
         public void Move(GraphicsDeviceManager graph,int i)
         {            
             if(i>=1||i<=4)

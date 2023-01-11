@@ -13,7 +13,7 @@ namespace Finaly_of_mine
         MouseState mouseState;        
         SpriteFont font;
         Player player;       
-        Texture2D grassText,playText,finishText;        
+        Texture2D playText,enimyText;        
         Vector2 gravite,vect;
         Enimy enimy;
         int t = 0;
@@ -64,17 +64,16 @@ namespace Finaly_of_mine
             vect = new Vector2(25, 200);
             base.Initialize();
             player = new Player(playText, new Rectangle(0, 375, 75, 75), Color.White, new Vector2(12.5f, 12.5f));           
-            enimy = new Enimy(finishText, new Rectangle(0, 0, 75, 75), Color.White,new Vector2(6.25f,6.25f));
+            enimy = new Enimy(enimyText, new Rectangle(0, 0, 75, 75), Color.White,new Vector2(6.25f,6.25f));
             timer= new Timer(2f,0f);
         }
 
         protected override void LoadContent()
         {
-            spriBat = new SpriteBatch(GraphicsDevice);
-            grassText = Content.Load<Texture2D>("Rockwall");
+            spriBat = new SpriteBatch(GraphicsDevice);            
             font = Content.Load<SpriteFont>("File");
             playText = Content.Load<Texture2D>("redEye");
-            finishText = Content.Load<Texture2D>("slimy");
+            enimyText = Content.Load<Texture2D>("slimy");
             // TODO: use this.Content to load your game content here
         }
 
@@ -141,6 +140,7 @@ namespace Finaly_of_mine
                 enimy.Draw(spriBat);
                 player.Draw(spriBat);
                 spriBat.DrawString(font, t.ToString(), new Vector2(0, 0), Color.Blue);
+                spriBat.DrawString(font, "slimy", enimy.Emyvec, Color.Blue);TextureAddressMode a lot
             }
             else if (screen == Screen.Endtro)
             {

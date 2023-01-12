@@ -18,12 +18,17 @@ namespace Finaly_of_mine
         private Rectangle _bounds;        
         private Vector2 _speed;
         private Point _position;
-        
+        public enum Room { Start,Left,Right,End}
+        private Room _room;
         public Player(Vector2 speed)
         {                             
             _bounds= new Rectangle(_position,new Point(5,5));    
             _speed = speed;
         }       
+        public Room TheRoom
+        {
+            get { return _room; }
+        }
         public Rectangle bounds
         {
             get { return _bounds; }
@@ -34,26 +39,40 @@ namespace Finaly_of_mine
             get { return _speed; }
         }                    
         public void Move(GraphicsDeviceManager graphic,KeyboardState kstate)
-        {            
-            bounds.Offset(_speed);
-            if (kstate.IsKeyDown(Keys.A))
-                if (bounds.Left - _speed.X < 0)
-                    _bounds.X = 0;
-                else _bounds.X -= (int)_speed.X;
-            else if (kstate.IsKeyDown(Keys.D))
-                if (bounds.Right + speed.X > graphic.PreferredBackBufferWidth)
-                    _bounds.X = graphic.PreferredBackBufferWidth - _bounds.Width;
-                else _bounds.X += (int)_speed.X;             
+        {
+            if (kstate.IsKeyDown(Keys.A) && (_room == Room.Start || _room == Room.Left || _room == Room.Right || _room == Room.End))
+            {
+                if (_room == Room.Start)
+                    _room = Room.Left;
+                else if (_room == Room.Left)
+                    _room = Room.End;
+                else if (_room == Room.End)
+                    _room = Room.Right;
+                else _room = Room.Start;
+            }
+            else if (kstate.IsKeyDown(Keys.D) && (_room == Room.Start || _room == Room.Left || _room == Room.Right || _room == Room.End))
+            {
+                if (_room == Room.Start)
+                    _room = Room.Right;
+                else if (_room == Room.Left)
+                    _room = Room.Start;
+                else if (_room == Room.End)
+                    _room = Room.Left;
+                else _room= Room.End;
+            }
+            
         }
         public int Click(MouseState state,Point point)
         {
+            
             int i=0;
             if (state.Position == point)
             {
-                if (state.LeftButton == ButtonState.Pressed)
+                if (state.ScrollWheelValue == 1)
                     i = 1;
-                else if (state.RightButton == ButtonState.Pressed)
-                    i = 2;                
+                else if (state.ScrollWheelValue == 0)
+                    i = 2;
+                else i = 0;
             }
             return i;
 

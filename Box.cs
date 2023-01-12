@@ -14,13 +14,13 @@ namespace Finaly_of_mine
         private Texture2D _texture;
         private Rectangle _bounds;
         private Color _color;
-        private Vector2 _speed;
-        public Box(Texture2D texture, Rectangle bounds, Color color, Vector2 speed)
+        int t = 0;
+        public Box(Texture2D texture, Rectangle bounds, Color color)
         {
             _texture = texture;
             _bounds = bounds;
             _color = color;
-            _speed = speed;
+           
         }
         public Texture2D texture
         {
@@ -35,12 +35,7 @@ namespace Finaly_of_mine
         {
             get { return _color; }
             set { _color = value; }
-        }
-        public Vector2 speed
-        {
-            get { return _speed; }
-            set { _speed = value; }
-        }
+        }         
         public Point centure
         {
             get { return _bounds.Center; }
@@ -50,8 +45,15 @@ namespace Finaly_of_mine
             get { return new Vector2(_bounds.Center.X, _bounds.Top); }
         }        
         public void Zoom(int i)
-        {
-            bounds =new Rectangle(bounds.Location, new Point(100, 100));
+        {            
+            while (t == 0)
+            {
+                if (i == 1)
+                    bounds = new Rectangle(bounds.Location - new Point(50, 50), new Point(200, 200));
+                else
+                    bounds = new Rectangle(bounds.Location + new Point(50, 50), new Point(100, 100));
+                t = 1;
+            }
         }
         public void Draw(SpriteBatch sB)
         {

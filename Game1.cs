@@ -10,13 +10,13 @@ namespace Finaly_of_mine
         private GraphicsDeviceManager graph;
         private SpriteBatch spriBat;
         Screen screen;
-        MouseState mouseState;
-        
+        MouseState mouseState;        
         SpriteFont font;
         Player player;       
-        Texture2D enimyText;        
+        Texture2D boxText;        
         Vector2 gravite,vect;
-        Box enimy;                    
+        Box box;
+        int i = 0;
         enum Levels
         {
             Zero, One, Two, Three, Four, Wait
@@ -44,14 +44,14 @@ namespace Finaly_of_mine
             vect = new Vector2(25, 200);
             base.Initialize();
             player = new Player( new Vector2(12.5f, 12.5f));           
-            enimy = new Box(enimyText, new Rectangle(0, 0, 75, 75), Color.White,new Vector2(6.25f,6.25f));            
+            box = new Box(boxText, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 100, 100), Color.White);            
         }
 
         protected override void LoadContent()
         {
             spriBat = new SpriteBatch(GraphicsDevice);            
             font = Content.Load<SpriteFont>("File");
-            enimyText = Content.Load<Texture2D>("woodside");
+            boxText = Content.Load<Texture2D>("woodside");
             // TODO: use this.Content to load your game content here
         }
 
@@ -65,10 +65,12 @@ namespace Finaly_of_mine
             if (screen == Screen.Intro)
             {
                 levels = Levels.Zero;
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (mouseState.LeftButton == ButtonState.Pressed)                
+                    i++;                
+                else if (mouseState.LeftButton == ButtonState.Released&&i>0)
                 {
-                    levels = Levels.One;
                     screen = Screen.Game;
+                    levels = Levels.One;
                 }
                 else if (mouseState.RightButton == ButtonState.Pressed)
                 { levels = Levels.Wait; screen = Screen.Game; }
@@ -78,7 +80,7 @@ namespace Finaly_of_mine
                 if (levels == Levels.One)
                 { 
                     player.Move(graph,Kstate);
-                    player.Click(mouseState,enimy.centure);
+                    box.Zoom(player.Click(mouseState,box.centure));
                 }
                 else if (levels == Levels.Wait)
                 {
@@ -109,13 +111,14 @@ namespace Finaly_of_mine
             else if(screen==Screen.Game)
             {                
                 if(levels == Levels.One)
-                { 
-                    
+                {
+                    box.Draw(spriBat);
                 }
                 else if(levels == Levels.Wait)
                 {
-                    spriBat.DrawString(font,"AD to turn, release right",vect,Color.Blue);
+                    spriBat.DrawString(font,"AD to turn scroll to zoom, release right",vect,Color.Blue);
                 }
+                else spriBat.DrawString(font,"hello",vect,Color.Blue);
             }
             else if (screen == Screen.Endtro)               
                 spriBat.DrawString(font,"The End",vect,Color.Blue);            

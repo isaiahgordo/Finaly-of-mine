@@ -10,12 +10,13 @@ namespace Finaly_of_mine
         private GraphicsDeviceManager graph;
         private SpriteBatch spriBat;
         Screen screen;
-        MouseState mouseState;         
+        MouseState mouseState;
+        
         SpriteFont font;
         Player player;       
         Texture2D enimyText;        
         Vector2 gravite,vect;
-        Enimy enimy;                    
+        Box enimy;                    
         enum Levels
         {
             Zero, One, Two, Three, Four, Wait
@@ -35,8 +36,7 @@ namespace Finaly_of_mine
         }
 
         protected override void Initialize()
-        {
-            
+        {            
             // TODO: Add your initialization logic here
             screen=Screen.Intro;                          
             gravite = new Vector2(0, -100);            
@@ -44,7 +44,7 @@ namespace Finaly_of_mine
             vect = new Vector2(25, 200);
             base.Initialize();
             player = new Player( new Vector2(12.5f, 12.5f));           
-            enimy = new Enimy(enimyText, new Rectangle(0, 0, 75, 75), Color.White,new Vector2(6.25f,6.25f));            
+            enimy = new Box(enimyText, new Rectangle(0, 0, 75, 75), Color.White,new Vector2(6.25f,6.25f));            
         }
 
         protected override void LoadContent()
@@ -56,9 +56,9 @@ namespace Finaly_of_mine
         }
 
         protected override void Update(GameTime gameTime)
-        {
-            
+        {            
             mouseState = Mouse.GetState();
+            player.Find(mouseState);
             KeyboardState Kstate= Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -76,7 +76,10 @@ namespace Finaly_of_mine
             else if (screen == Screen.Game)
             {
                 if (levels == Levels.One)
-                { }
+                { 
+                    player.Move(graph,Kstate);
+                    player.Click(mouseState,enimy.centure);
+                }
                 else if (levels == Levels.Wait)
                 {
                     mouseState = Mouse.GetState();

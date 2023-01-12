@@ -18,6 +18,7 @@ namespace Finaly_of_mine
         private Rectangle _bounds;        
         private Vector2 _speed;
         private Point _position;
+        
         public Player(Vector2 speed)
         {                             
             _bounds= new Rectangle(_position,new Point(5,5));    
@@ -42,11 +43,26 @@ namespace Finaly_of_mine
             else if (kstate.IsKeyDown(Keys.D))
                 if (bounds.Right + speed.X > graphic.PreferredBackBufferWidth)
                     _bounds.X = graphic.PreferredBackBufferWidth - _bounds.Width;
-                else _bounds.X += (int)_speed.X;            
+                else _bounds.X += (int)_speed.X;             
+        }
+        public int Click(MouseState state,Point point)
+        {
+            int i=0;
+            if (state.Position == point)
+            {
+                if (state.LeftButton == ButtonState.Pressed)
+                    i = 1;
+                else if (state.RightButton == ButtonState.Pressed)
+                    i = 2;                
+            }
+            return i;
+
         }
         public void Find(MouseState mouse)
         {
-            
+           mouse=  Mouse.GetState();
+            _position.X = mouse.X;
+            _position.Y = mouse.Y;
         }
         
     }

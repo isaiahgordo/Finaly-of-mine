@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Finaly_of_mine
 {
@@ -13,10 +14,13 @@ namespace Finaly_of_mine
         MouseState mouseState;        
         SpriteFont font;
         Player player;       
-        Texture2D boxText;        
+        Texture2D boxText,lockText;        
         Vector2 gravite,vect;
         Box box;
-        int i = 0;
+        Lock locked;
+        int i = 0;        
+        Random random = new Random();
+        Color color;
         enum Levels
         {
             Zero, One, Two, Three, Four, Wait
@@ -36,7 +40,8 @@ namespace Finaly_of_mine
         }
 
         protected override void Initialize()
-        {            
+        {
+            color = new Color(152, 121, 86,255);
             // TODO: Add your initialization logic here
             screen=Screen.Intro;                          
             gravite = new Vector2(0, -100);            
@@ -44,7 +49,8 @@ namespace Finaly_of_mine
             vect = new Vector2(25, 200);
             base.Initialize();
             player = new Player( new Vector2(12.5f, 12.5f));           
-            box = new Box(boxText, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 100, 100), Color.White);            
+            box = new Box(boxText, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 100, 100), Color.White);
+            locked = new Lock(lockText, Color.White, new Rectangle(0, 0, 25, 25));
         }
 
         protected override void LoadContent()
@@ -52,6 +58,7 @@ namespace Finaly_of_mine
             spriBat = new SpriteBatch(GraphicsDevice);            
             font = Content.Load<SpriteFont>("File");
             boxText = Content.Load<Texture2D>("woodside");
+            lockText = Content.Load<Texture2D>("comlock");
             // TODO: use this.Content to load your game content here
         }
 
@@ -80,7 +87,12 @@ namespace Finaly_of_mine
                 if (levels == Levels.One)
                 { 
                     player.Move(graph,Kstate);
-                    box.Zoom(player.Click(mouseState,box.centure));
+                    if (player.bounds.Contains(mouseState.Position))
+                    {                        
+                        i=random.Next(1,4);
+
+                    }
+                    
                 }
                 else if (levels == Levels.Wait)
                 {
@@ -111,8 +123,11 @@ namespace Finaly_of_mine
             else if(screen==Screen.Game)
             {                
                 if(levels == Levels.One)
-                {
+                { 
+                    int t = random.Next(1, 101);
+                    Vector2 nect=new Vector2(box.centure.X, box.centure.Y);
                     box.Draw(spriBat);
+                    spriBat.DrawString(font,t.ToString(), nect, color);
                 }
                 else if(levels == Levels.Wait)
                 {

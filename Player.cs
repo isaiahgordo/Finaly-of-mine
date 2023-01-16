@@ -62,20 +62,12 @@ namespace Finaly_of_mine
             }
             
         }
-        public int Click(MouseState state,Point point)
+        public int Click(MouseState mouse)
         {
-            
-            int i=0;
-            if (state.Position == point)
-            {
-                if (state.ScrollWheelValue == 1)
-                    i = 1;
-                else if (state.ScrollWheelValue == 0)
-                    i = 2;
-                else i = 0;
-            }
-            return i;
-
+            mouse= Mouse.GetState();
+            if (mouse.LeftButton == ButtonState.Pressed)
+                return 0;
+            else return 1;
         }
         public void Find(MouseState mouse)
         {

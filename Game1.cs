@@ -88,9 +88,10 @@ namespace Finaly_of_mine
                 { 
                     player.Move(graph,Kstate);
                     if (player.bounds.Contains(mouseState.Position))
-                    {                        
-                        i=random.Next(1,4);
-
+                    {
+                        i = random.Next(1, 4);
+                        if (locked.locked(player.TheRoom, mouseState, i = random.Next(0, 60), i = random.Next(0, 60), i = random.Next(0, 60)) == true)
+                            locked.thelock(locked.locked(player.TheRoom, mouseState, i = random.Next(0, 60), i = random.Next(0, 60), i = random.Next(0, 60)));
                     }
                     
                 }

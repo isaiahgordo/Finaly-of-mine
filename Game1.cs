@@ -90,8 +90,8 @@ namespace Finaly_of_mine
                     if (player.bounds.Contains(mouseState.Position))
                     {
                         i = random.Next(1, 4);
-                        if (locked.locked(player.TheRoom, mouseState, i = random.Next(0, 60), i = random.Next(0, 60), i = random.Next(0, 60)) == true)
-                            locked.thelock(locked.locked(player.TheRoom, mouseState, i = random.Next(0, 60), i = random.Next(0, 60), i = random.Next(0, 60)));
+                        if (locked.locked(player.TheRoom, mouseState, random,Kstate) == true)
+                            locked.thelock(locked.locked(player.TheRoom, mouseState, random,Kstate));
                     }
                     
                 }

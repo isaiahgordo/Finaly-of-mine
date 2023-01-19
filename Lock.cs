@@ -103,6 +103,11 @@ namespace Finaly_of_mine
             _texture = texture;
             _colour = colour;            
             _bounds = bounds;
+            _texture2=texture2;
+            for(int i = 0; i < _ints.Length; i++)
+            {
+                _ints[i] = i;
+            }
         }
     }
 }

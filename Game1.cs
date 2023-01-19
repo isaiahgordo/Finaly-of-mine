@@ -14,7 +14,7 @@ namespace Finaly_of_mine
         MouseState mouseState;        
         SpriteFont font;
         Player player;       
-        Texture2D boxText,lockText;        
+        Texture2D boxText,lockText,whiteText;        
         Vector2 gravite,vect;
         Box box;
         Lock locked;
@@ -50,7 +50,7 @@ namespace Finaly_of_mine
             base.Initialize();
             player = new Player( new Vector2(12.5f, 12.5f));           
             box = new Box(boxText, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 100, 100), Color.White);
-            locked = new Lock(lockText, Color.White, new Rectangle(0, 0, 25, 25));
+            locked = new Lock(lockText, Color.White, new Rectangle(0, 0, 25, 25),whiteText);
         }
 
         protected override void LoadContent()
@@ -58,7 +58,8 @@ namespace Finaly_of_mine
             spriBat = new SpriteBatch(GraphicsDevice);            
             font = Content.Load<SpriteFont>("File");
             boxText = Content.Load<Texture2D>("woodside");
-            lockText = Content.Load<Texture2D>("comlock");
+            lockText = Content.Load<Texture2D>("3dCl");
+            whiteText = Content.Load<Texture2D>("white");
             // TODO: use this.Content to load your game content here
         }
 

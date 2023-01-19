@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 namespace Finaly_of_mine
 {
     class Lock
-    {
-        
+    {        
         private Texture2D _texture,_texture2;
         private Color _colour;
         private bool _locked;

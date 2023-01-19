@@ -91,8 +91,11 @@ namespace Finaly_of_mine
                     if (player.bounds.Contains(mouseState.Position))
                     {
                         i = random.Next(1, 4);
-                        if (locked.locked(player.TheRoom, mouseState, random,Kstate) == true)
-                            locked.thelock(locked.locked(player.TheRoom, mouseState, random,Kstate));
+                        if (locked.locked(player.TheRoom, mouseState, random, Kstate) == true)
+                        { 
+                            locked.thelock(locked.locked(player.TheRoom, mouseState, random, Kstate));
+                            locked.Vect(graph);
+                        }
                     }
                     
                 }
@@ -126,10 +129,11 @@ namespace Finaly_of_mine
             {                
                 if(levels == Levels.One)
                 { 
-                    int t = random.Next(1, 101);
+                    int t = random.Next(10);                    
                     Vector2 nect=new Vector2(box.centure.X, box.centure.Y);
                     box.Draw(spriBat);
                     spriBat.DrawString(font,t.ToString(), nect, color);
+                    locked.Draw(spriBat, font);
                 }
                 else if(levels == Levels.Wait)
                 {

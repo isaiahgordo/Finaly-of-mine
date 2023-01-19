@@ -2,10 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-
 namespace Finaly_of_mine
-{
-    
+{    
     public class Game1 : Game
     {        
         private GraphicsDeviceManager graph;
@@ -38,7 +36,6 @@ namespace Finaly_of_mine
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
-
         protected override void Initialize()
         {
             color = new Color(152, 121, 86,255);
@@ -52,7 +49,6 @@ namespace Finaly_of_mine
             box = new Box(boxText, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 100, 100), Color.White);
             locked = new Lock(lockText, Color.White, new Rectangle(0, 0, 25, 25),whiteText);
         }
-
         protected override void LoadContent()
         {
             spriBat = new SpriteBatch(GraphicsDevice);            
@@ -62,7 +58,6 @@ namespace Finaly_of_mine
             whiteText = Content.Load<Texture2D>("white");
             // TODO: use this.Content to load your game content here
         }
-
         protected override void Update(GameTime gameTime)
         {            
             mouseState = Mouse.GetState();
@@ -115,7 +110,6 @@ namespace Finaly_of_mine
 
             base.Update(gameTime);
         }
-
         protected override void Draw(GameTime gameTime)
         {             
             GraphicsDevice.Clear(Color.CornflowerBlue);

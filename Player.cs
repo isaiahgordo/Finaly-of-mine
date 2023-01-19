@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using Color = Microsoft.Xna.Framework.Color;
 using Point = Microsoft.Xna.Framework.Point;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
-
 namespace Finaly_of_mine
 {
     class Player
@@ -59,8 +58,7 @@ namespace Finaly_of_mine
                 else if (_room == Room.End)
                     _room = Room.Left;
                 else _room= Room.End;
-            }
-            
+            }            
         }
         public int Click(MouseState mouse)
         {
@@ -74,7 +72,6 @@ namespace Finaly_of_mine
            mouse=  Mouse.GetState();
             _position.X = mouse.X;
             _position.Y = mouse.Y;
-        }
-        
+        }        
     }
 }

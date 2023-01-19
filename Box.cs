@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.Xna.Framework.Graphics.SpriteFont;
-
 namespace Finaly_of_mine
 {
     class Box
@@ -19,8 +18,7 @@ namespace Finaly_of_mine
         {
             _texture = texture;
             _bounds = bounds;
-            _color = color;
-           
+            _color = color;           
         }
         public Texture2D texture
         {
@@ -56,10 +54,8 @@ namespace Finaly_of_mine
             }
         }
         public void Draw(SpriteBatch sB)
-        {
-            
-                sB.Draw(texture,bounds,color);
-            
+        {            
+                sB.Draw(texture,bounds,color);            
         }
     }
 }

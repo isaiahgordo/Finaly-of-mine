@@ -51,7 +51,7 @@ namespace Finaly_of_mine
             base.Initialize();
             player = new Player( new Vector2(12.5f, 12.5f));           
             box = new Box(boxText, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 100, 100), Color.White);
-            locked = new Lock(lockText, Color.White, new Rectangle(graph.PreferredBackBufferWidth/2,graph.PreferredBackBufferHeight/2, 25, 25),whiteText,graph,random);
+            locked = new Lock(lockText, Color.White, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 25, 25),whiteText,graph,random);
             gold = new Gold(goldText, new Rectangle(graph.PreferredBackBufferWidth / 2 - 50, graph.PreferredBackBufferHeight / 2 - 50, 100, 100), new Color(251,222,34));
         }
         protected override void LoadContent()

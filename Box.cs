@@ -55,7 +55,7 @@ namespace Finaly_of_mine
         }
         public void Draw(SpriteBatch sB)
         {            
-                sB.Draw(texture,bounds,color);            
+            sB.Draw(texture,bounds,color);            
         }
     }
 }

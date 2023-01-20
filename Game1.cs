@@ -19,6 +19,7 @@ namespace Finaly_of_mine
         Vector2 gravite,vect;
         Box box;
         Lock locked;
+        Player.Room room;
         int i = 0;        
         Random random = new Random();
         Color color;
@@ -46,11 +47,11 @@ namespace Finaly_of_mine
             screen=Screen.Intro;                          
             gravite = new Vector2(0, -100);            
             levels = Levels.Zero;
-            vect = new Vector2(25, 200);
+            vect = new Vector2(10, 200);
             base.Initialize();
             player = new Player( new Vector2(12.5f, 12.5f));           
             box = new Box(boxText, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 100, 100), Color.White);
-            locked = new Lock(lockText, Color.White, new Rectangle(0, 0, 25, 25),whiteText,graph,random);
+            locked = new Lock(lockText, Color.White, new Rectangle(graph.PreferredBackBufferWidth/2,graph.PreferredBackBufferHeight/2, 25, 25),whiteText,graph,random);
             gold = new Gold(goldText, new Rectangle(graph.PreferredBackBufferWidth / 2 - 50, graph.PreferredBackBufferHeight / 2 - 50, 100, 100), new Color(251,222,34));
         }
         protected override void LoadContent()
@@ -71,6 +72,7 @@ namespace Finaly_of_mine
             KeyboardState Kstate= Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            room=player.TheRoom;
             if (screen == Screen.Intro)
             {
                 levels = Levels.Zero;
@@ -134,13 +136,15 @@ namespace Finaly_of_mine
                     int.TryParse(s, out int t);
                     Vector2 nect=new Vector2(box.centure.X, box.centure.Y);
                     box.Draw(spriBat);
-                    spriBat.DrawString(font,t.ToString(), nect, color);
-                    locked.Draw(spriBat, font);
+                    if(room!=Player.Room.Start)
+                        spriBat.DrawString(font,t.ToString(), nect, color);
+                    else
+                        locked.Draw(spriBat, font);
                     gold.Draw(spriBat, b);
                 }
                 else if(levels == Levels.Wait)
                 {
-                    spriBat.DrawString(font,"AD to turn scroll to zoom, release right",vect,Color.Blue);
+                    spriBat.DrawString(font,"AD to turn left click to zoom releas to un, release right",vect,Color.Blue);
                 }
                 else spriBat.DrawString(font,"hello",vect,Color.Blue);
             }

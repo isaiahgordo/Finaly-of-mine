@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Text;
+
 namespace Finaly_of_mine
 {    
     public class Game1 : Game
@@ -48,8 +50,8 @@ namespace Finaly_of_mine
             base.Initialize();
             player = new Player( new Vector2(12.5f, 12.5f));           
             box = new Box(boxText, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 100, 100), Color.White);
-            locked = new Lock(lockText, Color.White, new Rectangle(0, 0, 25, 25),whiteText);
-            gold = new Gold(goldText, new Rectangle(graph.PreferredBackBufferWidth / 2 - 50, graph.PreferredBackBufferHeight / 2 - 50, 100, 100), Color.White);
+            locked = new Lock(lockText, Color.White, new Rectangle(0, 0, 25, 25),whiteText,graph,random);
+            gold = new Gold(goldText, new Rectangle(graph.PreferredBackBufferWidth / 2 - 50, graph.PreferredBackBufferHeight / 2 - 50, 100, 100), new Color(251,222,34));
         }
         protected override void LoadContent()
         {
@@ -61,6 +63,7 @@ namespace Finaly_of_mine
             goldText = Content.Load<Texture2D>("Binka");
             // TODO: use this.Content to load your game content here
         }
+        bool b;
         protected override void Update(GameTime gameTime)
         {            
             mouseState = Mouse.GetState();
@@ -79,7 +82,10 @@ namespace Finaly_of_mine
                     levels = Levels.One;
                 }
                 else if (mouseState.RightButton == ButtonState.Pressed)
-                { levels = Levels.Wait; screen = Screen.Game; }
+                { 
+                    levels = Levels.Wait; 
+                    screen = Screen.Game;
+                }
             }
             else if (screen == Screen.Game)
             {
@@ -89,28 +95,26 @@ namespace Finaly_of_mine
                     if (player.bounds.Contains(mouseState.Position))
                     {
                         i = random.Next(1, 4);
-                        if (locked.locked(player.TheRoom, mouseState, random, Kstate) == true)
-                        { 
-                            locked.thelock(locked.locked(player.TheRoom, mouseState, random, Kstate));
-                            locked.Vect(graph);
+                        if (locked.locked(player.TheRoom, mouseState, Kstate) == true)
+                        {
+                            b = locked.locked(player.TheRoom, mouseState, Kstate);
+                            locked.thelock(b);                          
                         }
-                    }
-                    
+                    }                    
                 }
                 else if (levels == Levels.Wait)
                 {
                     mouseState = Mouse.GetState();
                     if (mouseState.RightButton == ButtonState.Released)
-                    { screen=Screen.Intro; }
+                    { 
+                        screen=Screen.Intro; 
+                    }
                 }
-            }
-               
+            }               
             if(screen==Screen.Endtro)            
                 if(mouseState.LeftButton == ButtonState.Pressed)
-                    base.Exit();
-            
+                    base.Exit();            
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
@@ -125,12 +129,14 @@ namespace Finaly_of_mine
             else if(screen==Screen.Game)
             {                
                 if(levels == Levels.One)
-                { 
-                    int t = random.Next(10);                    
+                {
+                    string s= locked.Locknum.Remove(1);
+                    int.TryParse(s, out int t);
                     Vector2 nect=new Vector2(box.centure.X, box.centure.Y);
                     box.Draw(spriBat);
                     spriBat.DrawString(font,t.ToString(), nect, color);
                     locked.Draw(spriBat, font);
+                    gold.Draw(spriBat, b);
                 }
                 else if(levels == Levels.Wait)
                 {

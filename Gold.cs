@@ -31,6 +31,10 @@ namespace Finaly_of_mine
         {
             get { return _color; }
         }
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb,bool b)
+        {
+            if (b==true)
+                sb.Draw(Texture, Bounds, Color);
+        }
     }
 }

@@ -38,17 +38,13 @@ namespace Finaly_of_mine
         { 
             get { return _locknum; }            
         }
-        public bool locked(Player.Room room,MouseState ms,Random r,KeyboardState ks)
+        public bool locked(Player.Room room,MouseState ms,KeyboardState ks)
         {
-            int i, n, t;
-            r = new Random();
             ms = Mouse.GetState();
             if (room == Player.Room.Start && ms.LeftButton == ButtonState.Pressed)
             { 
                 Bounds=new Rectangle(Bounds.X,Bounds.Y,200,200);
-                i = r.Next(10);
-                n= r.Next(10);
-                t= r.Next(10);
+               
                 
                 
                 return true;
@@ -56,56 +52,31 @@ namespace Finaly_of_mine
             else
                 return false;
         }
-        private int[] _ints = new int[10];
-        public Vector2 Vect(GraphicsDeviceManager graph)
-        {
-            Vector2 v = new Vector2(graph.PreferredBackBufferWidth, graph.PreferredBackBufferHeight);
-            Vect(v);
-            return v;
-        }
-        private Vector2 Vect(Vector2 vector)
-        {
-            _vect=vector;
-            return vector;
-        }
-        public Vector2 DrawingVector
-        {
-            get { return _vect; }
-        }       
+        private int[] _ints = new int[10];        
         public void Draw(SpriteBatch sb,SpriteFont font)
         {
             sb.Draw(Texture,Bounds,Colour);
-            sb.DrawString(font,Locknum,DrawingVector,_colour);
-            foreach (int i in _ints)
+            sb.DrawString(font,Locknum,_vect,_colour);            
+            for (int i = 0; i < _ints.Length; i++)
             {
-                _vector = new Vector2(_bounds2.Y, _bounds2.Width);
-                sb.Draw(_texture,_bounds2,Color.LightGray);
-                sb.DrawString(font,i.ToString(),_vector,Color.Black);
-                _bounds2.X += 50;
-                _vector += new Vector2(50, 50);
-                if (i == 3 || i == 6)
-                {
-                    _bounds2.X = 0;
-                    _bounds2.Y += 50;
-                    _vector = new Vector2(_bounds2.Y, _bounds2.Width);
-                }
-                else if (i == 9)
-                {
-                    _bounds2.X = 50;
-                    _vector = new Vector2(_bounds2.Y, _bounds2.Width);
-                }                
+                sb.Draw(_texture, _bounds2, Color.LightGray);
+                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
+                sb.DrawString(font, i.ToString(), _vector, Color.Black);
+                _bounds2.Location += new Point(50, 0);                
             }
         }
-        public Lock(Texture2D texture, Color colour, Rectangle bounds,Texture2D texture2)
+        public Lock(Texture2D texture, Color colour, Rectangle bounds,Texture2D texture2,GraphicsDeviceManager graph,Random r)
         {
             _texture = texture;
             _colour = colour;            
             _bounds = bounds;
-            _texture2=texture2;
-            for(int i = 0; i < _ints.Length; i++)
+            _texture2= texture2;
+            for (int i = 0; i < _ints.Length; i++)
             {
                 _ints[i] = i;
             }
+            _vect = new Vector2(graph.PreferredBackBufferWidth - 250, graph.PreferredBackBufferHeight);
+            _locknum = (r.Next(10) * 10 + r.Next(10) * 10 + r.Next(10)).ToString();
         }
     }
 }

@@ -138,9 +138,10 @@ namespace Finaly_of_mine
                     box.Draw(spriBat);
                     if(room!=Player.Room.Start)
                         spriBat.DrawString(font,t.ToString(), nect, color);
-                    else
+                    else if(room==Player.Room.Start)
                         locked.Draw(spriBat, font);
-                    gold.Draw(spriBat, b);
+                    else
+                        gold.Draw(spriBat, b);
                 }
                 else if(levels == Levels.Wait)
                 {

@@ -44,9 +44,8 @@ namespace Finaly_of_mine
             if (room == Player.Room.Start && ms.LeftButton == ButtonState.Pressed)
             { 
                 Bounds=new Rectangle(Bounds.X,Bounds.Y,200,200);
-               // dont know what to do but this does not work
-               // merge manion is dumb as hell because some how the hub left and died but didn't
-                
+                // dont know what to do but this does not work
+                // merge manion is dumb as hell because some how the hub left and died but didn't                
                 return true;
             }
             else
@@ -63,62 +62,60 @@ namespace Finaly_of_mine
                 sb.DrawString(font, i.ToString(), _vector, Color.Black);
                 _bounds2.Location += new Point(50, 0);
                 i++;
-
+                //2
                 sb.Draw(_texture2, _bounds2, Color.LightGray);
                 _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
                 sb.DrawString(font, i.ToString(), _vector, Color.Black);
                 _bounds2.Location += new Point(50, 0);
                 i++;
-
+                //3
                 sb.Draw(_texture2, _bounds2, Color.LightGray);
                 _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
                 sb.DrawString(font, i.ToString(), _vector, Color.Black);
                 _bounds2.Location -= new Point(100, -50);
                 i++;
-
+                //4
                 sb.Draw(_texture2, _bounds2, Color.LightGray);
                 _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
                 sb.DrawString(font, i.ToString(), _vector, Color.Black);
                 _bounds2.Location += new Point(50, 0);
                 i++;
-
+                //5
                 sb.Draw(_texture2, _bounds2, Color.LightGray);
                 _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
                 sb.DrawString(font, i.ToString(), _vector, Color.Black);
                 _bounds2.Location += new Point(50, 0);
                 i++;
-
+                //6
                 sb.Draw(_texture2, _bounds2, Color.LightGray);
                 _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
                 sb.DrawString(font, i.ToString(), _vector, Color.Black);
                 _bounds2.Location -= new Point(100, -50);
                 i++;
-
+                //7
                 sb.Draw(_texture2, _bounds2, Color.LightGray);
                 _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
                 sb.DrawString(font, i.ToString(), _vector, Color.Black);
                 _bounds2.Location += new Point(50, 0);
                 i++;
-
+                //8
                 sb.Draw(_texture2, _bounds2, Color.LightGray);
                 _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
                 sb.DrawString(font, i.ToString(), _vector, Color.Black);
                 _bounds2.Location += new Point(50, 0);
                 i++;
-
+                //9
                 sb.Draw(_texture2, _bounds2, Color.LightGray);
                 _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
                 sb.DrawString(font, i.ToString(), _vector, Color.Black);
                 _bounds2.Location -= new Point(50, -50);
                 i-=10;
-
+                //0
                 sb.Draw(_texture2, _bounds2, Color.LightGray);
                 _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
                 sb.DrawString(font, i.ToString(), _vector, Color.Black);                
-            }
-            
-        }
-        
+            }            
+        }        
         public Lock(Texture2D texture, Color colour, Rectangle bounds,Texture2D texture2,GraphicsDeviceManager graph,Random r)
         {
             _texture = texture;

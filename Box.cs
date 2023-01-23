@@ -41,18 +41,7 @@ namespace Finaly_of_mine
         public Vector2 Emyvec
         {
             get { return new Vector2(_bounds.Center.X, _bounds.Top); }
-        }        
-        public void Zoom(int i)
-        {            
-            while (t == 0)
-            {
-                if (i == 1)
-                    bounds = new Rectangle(bounds.Location - new Point(50, 50), new Point(200, 200));
-                else
-                    bounds = new Rectangle(bounds.Location + new Point(50, 50), new Point(100, 100));
-                t = 1;
-            }
-        }
+        }           
         public void Draw(SpriteBatch sB)
         {            
             sB.Draw(texture,bounds,color);            

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Text;
-
 namespace Finaly_of_mine
 {    
     public class Game1 : Game

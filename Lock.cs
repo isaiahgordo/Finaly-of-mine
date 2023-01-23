@@ -45,7 +45,7 @@ namespace Finaly_of_mine
             { 
                 Bounds=new Rectangle(Bounds.X,Bounds.Y,200,200);
                // dont know what to do but this does not work
-                
+               // merge manion is dumb as hell because some how the hub left and died but didn't
                 
                 return true;
             }

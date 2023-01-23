@@ -44,7 +44,7 @@ namespace Finaly_of_mine
             if (room == Player.Room.Start && ms.LeftButton == ButtonState.Pressed)
             { 
                 Bounds=new Rectangle(Bounds.X,Bounds.Y,200,200);
-               
+               // dont know what to do but this does not work
                 
                 
                 return true;

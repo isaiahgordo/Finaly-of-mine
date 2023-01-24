@@ -13,9 +13,9 @@ namespace Finaly_of_mine
         private Texture2D _texture,_texture2;
         private Color _colour;
         private bool _locked;
-        private Rectangle _bounds,_bounds2=new Rectangle(0,200,50,50);
-        private string _locknum;
-        private Vector2 _vect,_vector=new Vector2(250,50);
+        private Rectangle _bounds;
+        private int[] _locknum= new int[3];
+        private Vector2 _vector=new Vector2(250,50);
         public void thelock(bool b)
         {
             if (b == true)
@@ -34,96 +34,44 @@ namespace Finaly_of_mine
             get { return _bounds; }
             set{ _bounds = value; }
         }        
-        public string Locknum
+        public int[] Locknum
         { 
             get { return _locknum; }            
         }
-        public bool locked(Player.Room room,MouseState ms,KeyboardState ks)
+        public void locked(Player.Room room,MouseState ms,KeyboardState ks)
         {
             ms = Mouse.GetState();
             if (room == Player.Room.Start && ms.LeftButton == ButtonState.Pressed)
-            { 
-                Bounds=new Rectangle(Bounds.X,Bounds.Y,200,200);
+            {
+                Bounds = new Rectangle(Bounds.X, Bounds.Y, 200, 200);
                 // dont know what to do but this does not work
                 // merge manion is dumb as hell because some how the hub left and died but didn't                
-                return true;
             }
-            else
-                return false;
         }              
         public void Draw(SpriteBatch sb,SpriteFont font)
         {
-            sb.Draw(Texture,Bounds,Colour);
-            sb.DrawString(font,Locknum,_vect,_colour);
             int i = 1;
-            {
-                sb.Draw(_texture2, _bounds2, Color.LightGray);
-                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
-                sb.DrawString(font, i.ToString(), _vector, Color.Black);
-                _bounds2.Location += new Point(50, 0);
-                i++;
-                //2
-                sb.Draw(_texture2, _bounds2, Color.LightGray);
-                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
-                sb.DrawString(font, i.ToString(), _vector, Color.Black);
-                _bounds2.Location += new Point(50, 0);
-                i++;
-                //3
-                sb.Draw(_texture2, _bounds2, Color.LightGray);
-                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
-                sb.DrawString(font, i.ToString(), _vector, Color.Black);
-                _bounds2.Location -= new Point(100, -50);
-                i++;
-                //4
-                sb.Draw(_texture2, _bounds2, Color.LightGray);
-                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
-                sb.DrawString(font, i.ToString(), _vector, Color.Black);
-                _bounds2.Location += new Point(50, 0);
-                i++;
-                //5
-                sb.Draw(_texture2, _bounds2, Color.LightGray);
-                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
-                sb.DrawString(font, i.ToString(), _vector, Color.Black);
-                _bounds2.Location += new Point(50, 0);
-                i++;
-                //6
-                sb.Draw(_texture2, _bounds2, Color.LightGray);
-                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
-                sb.DrawString(font, i.ToString(), _vector, Color.Black);
-                _bounds2.Location -= new Point(100, -50);
-                i++;
-                //7
-                sb.Draw(_texture2, _bounds2, Color.LightGray);
-                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
-                sb.DrawString(font, i.ToString(), _vector, Color.Black);
-                _bounds2.Location += new Point(50, 0);
-                i++;
-                //8
-                sb.Draw(_texture2, _bounds2, Color.LightGray);
-                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
-                sb.DrawString(font, i.ToString(), _vector, Color.Black);
-                _bounds2.Location += new Point(50, 0);
-                i++;
-                //9
-                sb.Draw(_texture2, _bounds2, Color.LightGray);
-                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
-                sb.DrawString(font, i.ToString(), _vector, Color.Black);
-                _bounds2.Location -= new Point(50, -50);
-                i-=10;
-                //0
-                sb.Draw(_texture2, _bounds2, Color.LightGray);
-                _vector = new Vector2(_bounds2.Center.X - 50, _bounds2.Center.Y);
-                sb.DrawString(font, i.ToString(), _vector, Color.Black);                
-            }            
+            for (int x = 0; x <= 100; x += 50)
+                for (int y = 200; y <=300; y += 50)
+                {
+                    _vector=new Vector2(x+18,y+5);                    
+                    sb.Draw(_texture2, new Rectangle(x, y, 50, 50), Color.LightGray);
+                    sb.DrawString(font, i.ToString(), _vector, Color.Black);
+                    i++;
+                }
+            sb.Draw(_texture2,new Rectangle(50,350,50,50),Color.LightGray);
+            sb.DrawString(font, "0", new Vector2(68,355), Color.Black);
+            sb.Draw(Texture, Bounds, Colour);
         }        
-        public Lock(Texture2D texture, Color colour, Rectangle bounds,Texture2D texture2,GraphicsDeviceManager graph,Random r)
+        public Lock(Texture2D texture, Color colour, Rectangle bounds,Texture2D texture2,Random r)
         {
             _texture = texture;
             _colour = colour;            
             _bounds = bounds;
-            _texture2= texture2;            
-            _vect = new Vector2(graph.PreferredBackBufferWidth - 250, graph.PreferredBackBufferHeight);
-            _locknum = (r.Next(10) * 10 + r.Next(10) * 10 + r.Next(10)).ToString();
+            _texture2= texture2;
+            _locknum[0] = r.Next(10);
+            _locknum[1] = r.Next(10);
+            _locknum[2]= r.Next(10);
         }
     }
 }

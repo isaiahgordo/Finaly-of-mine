@@ -13,7 +13,7 @@ namespace Finaly_of_mine
         private Texture2D _texture;
         private Rectangle _bounds;
         private Color _color;
-        int t = 0;
+        
         public Box(Texture2D texture, Rectangle bounds, Color color)
         {
             _texture = texture;

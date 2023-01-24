@@ -50,7 +50,7 @@ namespace Finaly_of_mine
             base.Initialize();
             player = new Player( new Vector2(12.5f, 12.5f));           
             box = new Box(boxText, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 100, 100), Color.White);
-            locked = new Lock(lockText, Color.White, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 25, 25),whiteText,graph,random);
+            locked = new Lock(lockText, Color.White, new Rectangle(350,200, 25, 25),whiteText,random);
             gold = new Gold(goldText, new Rectangle(graph.PreferredBackBufferWidth / 2 - 50, graph.PreferredBackBufferHeight / 2 - 50, 100, 100), new Color(251,222,34));
         }
         protected override void LoadContent()
@@ -94,13 +94,10 @@ namespace Finaly_of_mine
                 { 
                     player.Move(graph,Kstate);
                     if (player.bounds.Contains(mouseState.Position))
-                    {
-                        i = random.Next(1, 4);
-                        if (locked.locked(player.TheRoom, mouseState, Kstate) == true)
-                        {
-                            b = locked.locked(player.TheRoom, mouseState, Kstate);
-                            locked.thelock(b);                          
-                        }
+                    {                        
+                        locked.locked(player.TheRoom, mouseState, Kstate);
+                        locked.thelock(b);                          
+                        
                     }                    
                 }
                 else if (levels == Levels.Wait)
@@ -131,13 +128,19 @@ namespace Finaly_of_mine
             {                
                 if(levels == Levels.One)
                 {
-                    string s= locked.Locknum.Remove(1);
-                    int.TryParse(s, out int t);
+                    int[] t = locked.Locknum;
+                    
                     Vector2 nect=new Vector2(box.centure.X, box.centure.Y);
                     box.Draw(spriBat);
-                    if(room!=Player.Room.Start)
-                        spriBat.DrawString(font,t.ToString(), nect, color);
-                    else if(room==Player.Room.Start)
+                    if (room != Player.Room.Start)
+                    {
+                        if (room == Player.Room.Left)
+                            spriBat.DrawString(font, t[0].ToString(), nect, color);
+                        else if (room == Player.Room.End)
+                            spriBat.DrawString(font, t[1].ToString(),nect,color);
+                        else spriBat.DrawString(font, t[2].ToString(), nect, color);
+                    }
+                    else if (room == Player.Room.Start)
                         locked.Draw(spriBat, font);
                     else
                         gold.Draw(spriBat, b);

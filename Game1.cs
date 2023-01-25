@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System;
+using System.Text;
 namespace Finaly_of_mine
-{
-    
+{    
     public class Game1 : Game
     {        
         private GraphicsDeviceManager graph;
@@ -13,19 +13,23 @@ namespace Finaly_of_mine
         MouseState mouseState;        
         SpriteFont font;
         Player player;
-        Wall wall;
-        Texture2D grassText,playText,finishText;        
+        Gold gold;
+        Texture2D boxText,lockText,whiteText,goldText;        
         Vector2 gravite,vect;
-        Finish finish;
+        Box box;
+        Lock locked;
+        Player.Room room;
+        int i = 0;        
+        Random random = new Random();
+        Color color;
         enum Levels
         {
-            Zero, One, Two, Three, Four
+            Zero, One, Two, Three, Four, Wait
         }
         Levels levels;
         enum Screen
         {
-            Intro,
-            Middle,
+            Intro,            
             Game,
             Endtro
         }
@@ -35,92 +39,120 @@ namespace Finaly_of_mine
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
-
         protected override void Initialize()
         {
+            color = new Color(152, 121, 86,255);
             // TODO: Add your initialization logic here
             screen=Screen.Intro;                          
-            gravite = new Vector2(0, -100);
+            gravite = new Vector2(0, -100);            
             levels = Levels.Zero;
-            vect = new Vector2(25, 200);
+            vect = new Vector2(10, 200);
             base.Initialize();
-            player = new Player(playText, new Rectangle(0, 375, 75, 75), Color.White, new Vector2(25, 25));
-            wall = new Wall(grassText, new Rectangle(0, 0, 75, 105), Color.White);
-            finish = new Finish(finishText, new Rectangle(graph.PreferredBackBufferWidth - 100, 0, 100, 100), Color.White);
-            wall.WallBounds(graph);
+            player = new Player( new Vector2(12.5f, 12.5f));           
+            box = new Box(boxText, new Rectangle(graph.PreferredBackBufferWidth/2-50,graph.PreferredBackBufferHeight/2-50, 100, 100), Color.White);
+            locked = new Lock(lockText, Color.White, new Rectangle(350,200, 25, 25),whiteText,random);
+            gold = new Gold(goldText, new Rectangle(graph.PreferredBackBufferWidth / 2 - 50, graph.PreferredBackBufferHeight / 2 - 50, 100, 100), new Color(251,222,34));
         }
-
         protected override void LoadContent()
         {
-            spriBat = new SpriteBatch(GraphicsDevice);
-            grassText = Content.Load<Texture2D>("Rockwall");
+            spriBat = new SpriteBatch(GraphicsDevice);            
             font = Content.Load<SpriteFont>("File");
-            playText = Content.Load<Texture2D>("download");
-            finishText = Content.Load<Texture2D>("Bean");
+            boxText = Content.Load<Texture2D>("woodside");
+            lockText = Content.Load<Texture2D>("3dCl");
+            whiteText = Content.Load<Texture2D>("white");
+            goldText = Content.Load<Texture2D>("Binka");
             // TODO: use this.Content to load your game content here
         }
-
+        bool b;
         protected override void Update(GameTime gameTime)
-        {
+        {            
             mouseState = Mouse.GetState();
-            KeyboardState kstate = Keyboard.GetState();
+            player.Find(mouseState);
+            KeyboardState Kstate= Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            room=player.TheRoom;
             if (screen == Screen.Intro)
-                if (mouseState.LeftButton == ButtonState.Pressed)
-                    screen = Screen.Middle;
-            if (screen == Screen.Middle)
-                if (kstate.IsKeyDown(Keys.A))
+            {
+                levels = Levels.Zero;
+                if (mouseState.LeftButton == ButtonState.Pressed)                
+                    i++;                
+                else if (mouseState.LeftButton == ButtonState.Released&&i>0)
                 {
-                    levels = Levels.One;
                     screen = Screen.Game;
-                    wall.tGetSet = 0;
-                }    
-            if(levels == Levels.One&&screen==Screen.Game)
-            {                
-                player.Move(graph,kstate,finish.centure,wall.Bounds);
-                if (player.oget == 5)
-                { levels = Levels.Two;wall.tGetSet = 1; }
+                    levels = Levels.One;
+                }
+                else if (mouseState.RightButton == ButtonState.Pressed)
+                { 
+                    levels = Levels.Wait; 
+                    screen = Screen.Game;
+                }
             }
-            if(levels== Levels.Four)
-              if(mouseState.LeftButton == ButtonState.Pressed)
-                    screen = Screen.Endtro;           
+            else if (screen == Screen.Game)
+            {
+                if (levels == Levels.One)
+                { 
+                    player.Move(graph,Kstate);
+                    if (player.bounds.Contains(mouseState.Position))
+                    {                        
+                        locked.locked(player.TheRoom, mouseState, Kstate);
+                        locked.thelock(b);                          
+                        
+                    }                    
+                }
+                else if (levels == Levels.Wait)
+                {
+                    mouseState = Mouse.GetState();
+                    if (mouseState.RightButton == ButtonState.Released)
+                    { 
+                        screen=Screen.Intro; 
+                    }
+                }
+            }               
             if(screen==Screen.Endtro)            
-                if(mouseState.LeftButton==ButtonState.Pressed)
-                    base.Exit();
-            
+                if(mouseState.LeftButton == ButtonState.Pressed)
+                    base.Exit();            
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
-
         protected override void Draw(GameTime gameTime)
-        { 
-            int i = 0;
+        {             
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
             spriBat.Begin();
             if(screen == Screen.Intro)
             {                
-                spriBat.DrawString(font,"Left clicks to continue",vect,Color.Blue);
+                spriBat.DrawString(font, "Left click to continue, Right for intrutions don't release", vect,Color.Blue);
+            }           
+            else if(screen==Screen.Game)
+            {                
+                if(levels == Levels.One)
+                {
+                    int[] t = locked.Locknum;
+                    
+                    Vector2 nect=new Vector2(box.centure.X, box.centure.Y);
+                    box.Draw(spriBat);
+                    if (room != Player.Room.Start)
+                    {
+                        if (room == Player.Room.Left)
+                            spriBat.DrawString(font, t[0].ToString(), nect, color);
+                        else if (room == Player.Room.End)
+                            spriBat.DrawString(font, t[1].ToString(),nect,color);
+                        else spriBat.DrawString(font, t[2].ToString(), nect, color);
+                    }
+                    else if (room == Player.Room.Start)
+                        locked.Draw(spriBat, font);
+                    else
+                        gold.Draw(spriBat, b);
+                }
+                else if(levels == Levels.Wait)
+                {
+                    spriBat.DrawString(font,"AD to turn left click to zoom releas to un, release right",vect,Color.Blue);
+                }
+                else spriBat.DrawString(font,"hello",vect,Color.Blue);
             }
-            if(screen == Screen.Middle)
-            {
-                spriBat.DrawString(font, "Wasd to play e to finish on bean the cat, A to continue", vect, Color.Blue);
-            }
-            if(screen==Screen.Game)
-            {
-                if (levels == Levels.One)
-                    i = 1;
-                finish.Draw(spriBat);
-                player.Draw(spriBat,i); 
-                wall.Draw(spriBat);
-                
-            }
-            if (screen == Screen.Endtro)
-            {
-                //spriBat.Draw();
-            }
+            else if (screen == Screen.Endtro)               
+                spriBat.DrawString(font,"The End",vect,Color.Blue);            
             spriBat.End();
             base.Draw(gameTime);
         }

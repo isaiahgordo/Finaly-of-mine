@@ -63,7 +63,7 @@ namespace Finale_of_mine
             // TODO: use this.Content to load your game content here
             titleFont = Content.Load<SpriteFont>("Title");
         }
-        bool b;
+        bool b=true;
         protected override void Update(GameTime gameTime)
         {            
             mouseState = Mouse.GetState();
@@ -122,7 +122,7 @@ namespace Finale_of_mine
             spriBat.Begin();
             if(screen == Screen.Intro)
             {
-                spriBat.DrawString(titleFont, "Combo Breaker", new Vector2(10, 30), Color.Red);
+                spriBat.DrawString(titleFont, "Combo Breaker", new Vector2(50, 30), Color.Red);
                 spriBat.DrawString(font, "Left click to continue, Right for intrutions (don't release)", vect,Color.Blue);
             }           
             else if(screen==Screen.Game)
@@ -145,16 +145,16 @@ namespace Finale_of_mine
                             GraphicsDevice.Clear(Color.Red);
                             spriBat.DrawString(font, t[1].ToString(), nect, color);
                         }
-                        else 
+                        else
                         {
                             GraphicsDevice.Clear(Color.White);
                             spriBat.DrawString(font, t[2].ToString(), nect, color);
                         }
                     }
-                    else if (room == Player.Room.Start)
+                    else if (room == Player.Room.Start && locked.Locked == true)
                         locked.Draw(spriBat, font);
                     else
-                        gold.Draw(spriBat, b);
+                    { gold.Draw(spriBat, b);spriBat.DrawString(titleFont, "Winer", new Vector2(graph.PreferredBackBufferWidth / 2, graph.PreferredBackBufferHeight / 2), Color.Red); }
                 }
                 else if(levels == Levels.Wait)
                 {

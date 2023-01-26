@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Finaly_of_mine
+namespace Finale_of_mine
 {
     class Lock
     {        
@@ -59,8 +59,10 @@ namespace Finaly_of_mine
                     sb.DrawString(font, i.ToString(), _vector, Color.Black);
                     i++;
                 }
-            sb.Draw(_texture2,new Rectangle(50,350,50,50),Color.LightGray);
-            sb.DrawString(font, "0", new Vector2(68,355), Color.Black);
+            sb.Draw(_texture2, new Rectangle(0, 350, 50, 50), Color.LightGray);
+            sb.DrawString(font, "0", new Vector2(18, 355), Color.Black);
+            sb.Draw(_texture2, new Rectangle(50, 350, 100, 50), Color.LightGray);
+            sb.DrawString(font, "Enter", new Vector2(68, 355), Color.Black);
             sb.Draw(Texture, Bounds, Colour);
         }        
         public Lock(Texture2D texture, Color colour, Rectangle bounds,Texture2D texture2,Random r)

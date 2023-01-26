@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Color = Microsoft.Xna.Framework.Color;
 using Point = Microsoft.Xna.Framework.Point;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
-namespace Finaly_of_mine
+namespace Finale_of_mine
 {
     class Player
     {       
@@ -39,26 +39,15 @@ namespace Finaly_of_mine
         }                    
         public void Move(GraphicsDeviceManager graphic,KeyboardState kstate)
         {
-            if (kstate.IsKeyDown(Keys.A) && (_room == Room.Start || _room == Room.Left || _room == Room.Right || _room == Room.End))
-            {
-                if (_room == Room.Start)
-                    _room = Room.Left;
-                else if (_room == Room.Left)
-                    _room = Room.End;
-                else if (_room == Room.End)
-                    _room = Room.Right;
-                else _room = Room.Start;
-            }
-            else if (kstate.IsKeyDown(Keys.D) && (_room == Room.Start || _room == Room.Left || _room == Room.Right || _room == Room.End))
-            {
-                if (_room == Room.Start)
-                    _room = Room.Right;
-                else if (_room == Room.Left)
-                    _room = Room.Start;
-                else if (_room == Room.End)
-                    _room = Room.Left;
-                else _room= Room.End;
-            }            
+            kstate = Keyboard.GetState();
+            if (kstate.IsKeyDown(Keys.A) && _room != Room.Left)
+                _room = Room.Left;
+            if (kstate.IsKeyDown(Keys.S) && _room != Room.End)
+                _room = Room.End;
+            if (kstate.IsKeyDown(Keys.D) && _room != Room.Right)
+                _room = Room.Right;
+            if (kstate.IsKeyDown(Keys.W) && _room != Room.Start)
+                _room = Room.Start;
         }
         public int Click(MouseState mouse)
         {

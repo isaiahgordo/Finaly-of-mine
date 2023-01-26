@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Finaly_of_mine
+namespace Finale_of_mine
 {
     class Gold
     {

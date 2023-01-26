@@ -1,2 +1,2 @@
-﻿using var game = new Finaly_of_mine.Game1();
+﻿using var game = new Finale_of_mine.Game1();
 game.Run();
